@@ -35,7 +35,14 @@ For the following observations we will need to create two virtual machines using
 <img src="https://i.imgur.com/NIZEltL.png" height="50%" width="50%" alt="Azure Free Account"/> <img src="https://i.imgur.com/ETgnYeU.png" height="50%" width="50%" alt="Azure Free Services"/>
 </p>
 
-Open WireShark and for ICMP Traffic only. This traffic will display the relay request and deliver, also known as "ping". We will be able to see how many packets are requested and recieved. The cool thing is that we can inspect the data of the packets in WireShark. 
+<h3>Step 2: Observe ICMP Traffic</h3>
+First, open Wireshark and click "Ethernet". Then click the little blue icon in the top left corner to start capturing packets.
+
+<p align="center">
+<img src="https://i.imgur.com/BCDLYKO.png" height="50%" width="50%" alt="Azure Free Account"/>	
+</p>
+
+Open WireShark and filter for ICMP Traffic only. This traffic will display the relay request and deliver, also known as "ping". We will be able to see how many packets are requested and recieved. The cool thing is that we can inspect the data of the packets in WireShark. 
 
 ![vivaldi_Z27HHIWElt](https://user-images.githubusercontent.com/109401839/213242732-517627c3-b557-40bc-906e-cce25ec02953.png)
 
