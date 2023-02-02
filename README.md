@@ -52,7 +52,7 @@ Using WireShark we will filter for ICMP traffic only. ICMP stands for "Internet 
 </p>
 <p align="center">
 
-Next, we will initiate a perpetual/non-stop ping from our Windows 10 VM to our Linux VM. Then we will change the firewall on our Linux VM to block ICMP traffic from coming through. To initiate a perpetual ping from Windows 10 VM to Linux VM, go to PowerShell and type ping (Linux private IP address) -t. For example, mine will be: ping 10.0.0.5 -t then press enter. The Replies will in essence keep going forever until the ping is stopped or ICMP is blocked in our Linux VM's firewall.
+Next, we will initiate a perpetual/non-stop ping from our Windows 10 VM to our Linux VM. Then we will change the firewall on our Linux VM to block ICMP traffic from coming through. To initiate a perpetual ping from Windows 10 VM to Linux VM, go to PowerShell and type ping (Linux private IP address) -t. For example, mine will be: "ping 10.0.0.5 -t" then press enter. The Replies will in essence keep going forever until the ping is stopped or ICMP is blocked in our Linux VM's firewall.
 
 <p align="center">
 <img src="https://i.imgur.com/NEZNlKW.png" height="50%" width="50%" alt="osTicket Prereqs and Installation"/>
@@ -98,7 +98,7 @@ To continue connecting into our Linux VM from our Windows 10 VM: "Are you sure y
 </p>
 <p align="center">
   
-"labuser@VM2" appears in green on PowerShell shows our connection to our Linux VM. Whatever we type into PowerShell we can see the traffic in Wireshark over the network. We can now type any Linux command into PowerShell. For example, lets type "uname -a" and it will tell us about the actual operating system it's running on.
+We see "labuser@VM2" appears in green on PowerShell which shows our connection to our Linux VM. Whatever we type into PowerShell we can see the traffic in Wireshark over the network. We can now type any Linux command into PowerShell. For example, lets type "uname -a" and it will tell us about the actual operating system it's running on.
   
 <p align="center">
 <img src="https://i.imgur.com/b0zXc2E.png" height="50%" width="50%" alt="osTicket Prereqs and Installation"/>
