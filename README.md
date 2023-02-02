@@ -45,7 +45,7 @@ First, open Wireshark and click "Ethernet". Then click the little blue icon in t
 <img src="https://i.imgur.com/BCDLYKO.png" height="50%" width="50%" alt="Azure Free Account"/>	
 </p>
 
-Using WireShark we will filter for ICMP traffic only. ICMP is the protocol that "ping" uses; ping is what is used to test connectivity between different hosts on the network. This traffic will display the relay request and deliver. We will use Windows PowerShell to ping our Linux virtual machine to see how many packets are sent and recieved. Do this by opening Windows PowerShell and ping our Linux Virtual Machine's private IP address. Mine is 10.0.0.5
+Using WireShark we will filter for ICMP traffic only. ICMP stands for "Internet Control Message Protocol". It is the protocol that "ping" uses; ping is a command tool used to test connectivity between different hosts on the network. This traffic will display the relay request and deliver. We will use Windows PowerShell to ping our Linux virtual machine to see how many packets are sent and recieved. Do this by opening Windows PowerShell and ping our Linux Virtual Machine's private IP address. Mine is 10.0.0.5
 
 <p align="center">
 <img src="https://i.imgur.com/bJJCXXM.png" height="50%" width="50%" alt="osTicket Prereqs and Installation"/>
@@ -66,19 +66,46 @@ Next, we will configure our Linux VM's firewall in Azure to block ICMP traffic f
 </p>
 <p align="center">
 
-Lastly, go back to our Windows 10 VM and you can see the effect of the rule we added. In PowerShell we can see the ping is now timing out because it is getting blocked by our Linux VM's firewall. In Wireshark we can see that it went from receiving "request" and "reply" to "no response found".
+Go back to our Windows 10 VM and you can see the effect of the rule we added. In PowerShell we can see the ping is now timing out because it is getting blocked by our Linux VM's firewall. In Wireshark we can see that it went from receiving "request" and "reply" to "no response found".
 
 <p align="center">
 <img src="https://i.imgur.com/1ROntI9.png" height="50%" width="50%" alt="Azure Free Account"/> <img src="https://i.imgur.com/jNJQotH.png" height="50%" width="50%" alt="Azure Free Services"/>
 </p>
 
+Lastly, we will re-enable ICMP traffic for the Network Security Group our Linux VM is using. To do so go back to the Azure portal --> search "Network security groups" --> select "VM2-nsg" (Linux VM) --> select "Inbound security rules" --> select "DENY_ICMP_PING_FROM_ANYWHERE" --> set Action to "Allow" --> select "Save".
+
+<p align="center">
+<img src="https://i.imgur.com/6hFqNSN.png" height="50%" width="50%" alt="osTicket Prereqs and Installation"/>
+</p>
+<p align="center">
+
+Now we can go back into our Windows 10 VM and we can see we are receiving responses from our Linux VM again. Wireshark and PowerShell should now show replies coming through.
+  
 <h3>Step 3: Observe SSH Traffic</h3>
-Let us observe a different kind of Traffic, SSH. Filter for SSH traffic only in WireShark. From the Windows 10 VM, "SHH into" the Ubuntu VM. This can be done by using the command, "SSH username@ipaddress" in my case, SSH labuser@10.0.04 , then we will see that WireShark immediately sees the SSH packets between the two VM. 
+Using Wireshark and PowerShell we will observe SSH traffic. Filter for SSH traffic only in WireShark. SSH, also known as "Secure Shell" is used when remotely connecting from one computer to another and spawning a command line. The computer being connected to is typically "listening" for a connection on TCP port 22. 
 
-![vivaldi_voFaQKzigU](https://user-images.githubusercontent.com/109401839/213243011-f74fa2ba-ba3f-4c0f-938f-2915b998b68e.png)
+Now we're going to connect from our Windows 10 VM into our Linux VM via Secure Shell; we will "SSH" into the Linux VM. This can be done by using PowerShell, "ssh username@(private)ipaddress". In my case, ssh labuser@10.0.0.5 (Linux private IP address). Then we will see that WireShark immediately sees the SSH packets between the two VM. 
 
-
-3. Obeserve DHCP Traffic, DHCP is Dynamic Host Configuration Protocol which operates on ports 67 and 68. The main function of DHCP is to assign different devices their IP-Address. Filter for DHCP in WireShark. We can attempt to issue a new IP address to our Windows 10 VM by using CMD and entering the line "IPCONFIG /RENEW". Now, inspect WireShark for this traffic. 
+<p align="center">
+<img src="https://i.imgur.com/ta80GVR.png" height="50%" width="50%" alt="osTicket Prereqs and Installation"/>
+</p>
+<p align="center">
+  
+To continue connecting into our Linux VM from our Windows 10 VM: "Are you sure you want to continue connecting (yes/no/[fingerprint])?" type "yes" --> type password for your Linux VM (note: when typing your password it will not show but trust it is there) --> enter. We are now connected into our Linux VM from our Windows 10 VM.
+  
+<p align="center">
+<img src="https://i.imgur.com/gD5xTV8.png" height="50%" width="50%" alt="osTicket Prereqs and Installation"/>
+</p>
+<p align="center">
+  
+"labuser@VM2" appears in green on PowerShell shows our connection to our Linux VM. Whatever we type into PowerShell we can see the traffic in Wireshark over the network. We can now type any Linux command into PowerShell. For example, lets type "uname -a" and it will tell us about the actual operating system it's running on.
+  
+<p align="center">
+<img src="https://i.imgur.com/b0zXc2E.png" height="50%" width="50%" alt="osTicket Prereqs and Installation"/>
+</p>
+<p align="center">
+  
+  3. Obeserve DHCP Traffic, DHCP is Dynamic Host Configuration Protocol which operates on ports 67 and 68. The main function of DHCP is to assign different devices their IP-Address. Filter for DHCP in WireShark. We can attempt to issue a new IP address to our Windows 10 VM by using CMD and entering the line "IPCONFIG /RENEW". Now, inspect WireShark for this traffic. 
 
 ![vivaldi_2hRg2VDUxe](https://user-images.githubusercontent.com/109401839/213243361-2e338ef0-af7c-47b9-9387-6a002791fd07.png)
 
