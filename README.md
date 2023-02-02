@@ -129,4 +129,4 @@ Back in Wireshark, filter for RDP traffic only. RDP stands for Remote Destop Pro
 </p>
 <p align="center">
 
-In the [next tutorial](https://github.com/fnabeel/Network-File-Shares-and-Permissions),  we will go over settingup Network File Sharing and Permissions. I recommend not destroying your virtual machine you have created in this tutorial. It will come in handy next time !
+That is all for this tutorial! Thank you for tuning in!
