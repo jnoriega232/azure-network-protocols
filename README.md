@@ -29,11 +29,14 @@ Welcome back! In this tutorial, we observe various network traffic to and from A
 <h2>Actions and Observations</h2>
 
 <h3>Step 1: Create Virtual Machines</h3>
-For the following observations we will need to create two virtual machines using Microsoft Azure. On one machine we will use Windows 10 and on the other we will use Ubuntu Server 20.04 (Linux) operating system. Both should have a minimum of a two-core virtual cpu (Standard_D4s_v3 - 2 vcpus). Once both are set-up, proceed and log in to the Windows 10 version. Then download and install Wireshark on Windows 10: (https://www.wireshark.org/download.html).
+For the following observations we will need to create two Virtual Machines using Microsoft Azure. On one machine we will use Windows 10 and on the other we will use Ubuntu Server 20.04 (Linux) operating system. Both should have a minimum of a two-core virtual cpu (Standard_D4s_v3 - 2 vcpus). Once both are set-up, proceed and log in to the Windows 10 version. Then download and install Wireshark on Windows 10: (https://www.wireshark.org/download.html).
 
 <p align="center">
-<img src="https://i.imgur.com/NIZEltL.png" height="50%" width="50%" alt="Azure Free Account"/> <img src="https://i.imgur.com/ETgnYeU.png" height="50%" width="50%" alt="Azure Free Services"/>
+<img src="https://i.imgur.com/NIZEltL.png" height="40%" width="40%" alt="osTicket Prereqs and Installation"/>
+<img src="https://i.imgur.com/ETgnYeU.png" height="40%" width="40%" alt="osTicket Prereqs and Installation"/>
+<img src="https://i.imgur.com/zc379L3.png" height="40%" width="40%" alt="osTicket Prereqs and Installation"/>
 </p>
+<p>
 
 <h3>Step 2: Observe ICMP Traffic</h3>
 First, open Wireshark and click "Ethernet". Then click the little blue icon in the top left corner to start capturing packets.
@@ -42,11 +45,35 @@ First, open Wireshark and click "Ethernet". Then click the little blue icon in t
 <img src="https://i.imgur.com/BCDLYKO.png" height="50%" width="50%" alt="Azure Free Account"/>	
 </p>
 
-Open WireShark and filter for ICMP Traffic only. This traffic will display the relay request and deliver, also known as "ping". We will be able to see how many packets are requested and recieved. The cool thing is that we can inspect the data of the packets in WireShark. 
+Using WireShark we will filter for ICMP traffic only. ICMP is the protocol that "ping" uses; ping is what is used to test connectivity between different hosts on the network. This traffic will display the relay request and deliver. We will use Windows PowerShell to ping our Linux virtual machine to see how many packets are sent and recieved. Do this by opening Windows PowerShell and ping our Linux Virtual Machine's private IP address. Mine is 10.0.0.5
 
-![vivaldi_Z27HHIWElt](https://user-images.githubusercontent.com/109401839/213242732-517627c3-b557-40bc-906e-cce25ec02953.png)
+<p align="center">
+<img src="https://i.imgur.com/bJJCXXM.png" height="50%" width="50%" alt="osTicket Prereqs and Installation"/>
+</p>
+<p align="center">
 
-2. Let us observe a different kind of Traffic, SSH. Filter for SSH traffic only in WireShark. From the Windows 10 VM, "SHH into" the Ubuntu VM. This can be done by using the command, "SSH username@ipaddress" in my case, SSH labuser@10.0.04 , then we will see that WireShark immediately sees the SSH packets between the two VM. 
+Next, we will initiate a perpetual/non-stop ping from our Windows 10 VM to our Linux VM. Then we will change the firewall on our Linux VM to block ICMP traffic from coming through. To initiate a perpetual ping from Windows 10 VM to Linux VM, go to PowerShell and type ping (Linux private IP address) -t. For example, mine will be: ping 10.0.0.5 -t then press enter. The Replies will in essence keep going forever until the ping is stopped or ICMP is blocked in our Linux VM's firewall.
+
+<p align="center">
+<img src="https://i.imgur.com/NEZNlKW.png" height="50%" width="50%" alt="osTicket Prereqs and Installation"/>
+</p>
+<p align="center">
+
+Next, we will configure our Linux VM's firewall in Azure to block ICMP traffic from coming through. A firewall in Azure is also known as "Network Security Group" (NSG). To do so go to the Azure portal --> search "Network security groups" --> select "VM2-nsg" (Linux VM) --> select "Inbound security rules" --> select "Add" --> set Protocol to "ICMP" --> set Action to "Deny" --> set Priority to "200" --> Name: "DENY_ICMP_PING_FROM_ANYWHERE" --> select "Add".
+
+<p align="center">
+<img src="https://i.imgur.com/AS39UdC.png" height="50%" width="50%" alt="osTicket Prereqs and Installation"/>
+</p>
+<p align="center">
+
+Lastly, go back to our Windows 10 VM and you can see the effect of the rule we added. In PowerShell we can see the ping is now timing out because it is getting blocked by our Linux VM's firewall. In Wireshark we can see that it went from receiving "request" and "reply" to "no response found".
+
+<p align="center">
+<img src="https://i.imgur.com/1ROntI9.png" height="50%" width="50%" alt="Azure Free Account"/> <img src="https://i.imgur.com/jNJQotH.png" height="50%" width="50%" alt="Azure Free Services"/>
+</p>
+
+<h3>Step 3: Observe SSH Traffic</h3>
+Let us observe a different kind of Traffic, SSH. Filter for SSH traffic only in WireShark. From the Windows 10 VM, "SHH into" the Ubuntu VM. This can be done by using the command, "SSH username@ipaddress" in my case, SSH labuser@10.0.04 , then we will see that WireShark immediately sees the SSH packets between the two VM. 
 
 ![vivaldi_voFaQKzigU](https://user-images.githubusercontent.com/109401839/213243011-f74fa2ba-ba3f-4c0f-938f-2915b998b68e.png)
 
