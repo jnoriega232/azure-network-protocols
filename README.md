@@ -105,17 +105,28 @@ We see "labuser@VM2" appears in green on PowerShell which shows our connection t
 </p>
 <p align="center">
   
-  3. Obeserve DHCP Traffic, DHCP is Dynamic Host Configuration Protocol which operates on ports 67 and 68. The main function of DHCP is to assign different devices their IP-Address. Filter for DHCP in WireShark. We can attempt to issue a new IP address to our Windows 10 VM by using CMD and entering the line "IPCONFIG /RENEW". Now, inspect WireShark for this traffic. 
+<h3>Step 4: Observe DHCP Traffic</h3>
+Using Wireshark and PowerShell we will observe DHCP traffic by filtering for DHCP traffic only. DHCP stands for Dynamic Host Configuration Protocol which operates on ports 67 and 68. DHCP is a protocol used to assign an IP address to devices when they are first connected to the network. We will attempt to issue a new IP address to our Windows 10 VM by using PowerShell and entering the line "ipconfig /renew". Now, inspect WireShark for this traffic. 
 
-![vivaldi_2hRg2VDUxe](https://user-images.githubusercontent.com/109401839/213243361-2e338ef0-af7c-47b9-9387-6a002791fd07.png)
+<p align="center">
+<img src="https://i.imgur.com/hngch8M.png" height="50%" width="50%" alt="osTicket Prereqs and Installation"/>
+</p>
+<p align="center">
 
-4. Observe DNS Traffic, once again, filter for DNS. In CMD, lets use the command "nslookup" to see what google.com or most of any website IP addresses are. Now, inspect WireShark and the traffic it is capturing here. 
+<h3>Step 5: Observe DNS Traffic</h3>
+Back in Wireshark, filter for DNS traffic only. In PowerShell, we will use the command "nslookup" to see what google.com or most of any website IP addresses are. Now, inspect WireShark and the traffic it is capturing here. 
 
-![vivaldi_p4LlxYiVLv](https://user-images.githubusercontent.com/109401839/213243701-b3915d44-2aa3-4fe7-b637-e7d9c5ecd6c3.png)
+<p align="center">
+<img src="https://i.imgur.com/M6DunxQ.png" height="50%" width="50%" alt="osTicket Prereqs and Installation"/>
+</p>
+<p align="center">
 
-5. Observe RDP Traffic, Filter for RDP. We can do this by entering "tcp.port == 3389" in WireShark. Traffic is now constantly flowing, showing a live stream of packets between one computer to another. Fascinating isnt it? 
+<h3>Step 6: Observe RDP Traffic</h3>
+Back in Wireshark, filter for RDP traffic only. RDP stands for Remote Destop Protocol and it's used when remotely connecting from one computer to another to gain a remote desktop GUI. The computer being connected to is typically "listening" for a connection on TCP port 3389. So, we can do this by entering "rdp" or "tcp.port == 3389" in WireShark. Traffic is now constantly flowing, showing a live stream of packets between one computer to another.
 
-![vivaldi_yi916o0Wbr](https://user-images.githubusercontent.com/109401839/213243903-af301b6a-d633-457e-ad1f-dc22cb93edf5.png)
-
+<p align="center">
+<img src="https://i.imgur.com/vGnFMjb.png" height="50%" width="50%" alt="osTicket Prereqs and Installation"/>
+</p>
+<p align="center">
 
 In the [next tutorial](https://github.com/fnabeel/Network-File-Shares-and-Permissions),  we will go over settingup Network File Sharing and Permissions. I recommend not destroying your virtual machine you have created in this tutorial. It will come in handy next time !
