@@ -29,7 +29,7 @@ Welcome back! In this tutorial, we observe various network traffic to and from A
 <h2>Actions and Observations</h2>
 
 <h3>Step 1: Setup Resources in Azure</h3>
-For the following observations we will need to create two Virtual Machines using Microsoft Azure. On one machine we will use Windows 10 and on the other we will use Ubuntu Server 20.04 (Linux) operating system. Both should have a minimum of a two-core virtual cpu (Standard_D4s_v3 - 2 vcpus). Once both are set-up, proceed and log in to the Windows 10 version. Then download and install Wireshark on Windows 10: (https://www.wireshark.org/download.html).
+For the following observations we will need to create two Virtual Machines using Microsoft Azure. On one machine we will use Windows 10 Pro and on the other we will use Ubuntu Server 20.04 (Linux) operating system. Both should have a minimum of a two-core virtual cpu (Standard_D4s_v3 - 2 vcpus). Once both are set-up, proceed and log in to the Windows 10 version. Then download and install Wireshark on Windows 10: (https://www.wireshark.org/download.html).
 
 <p align="center">
 <img src="https://i.imgur.com/NIZEltL.png" height="40%" width="40%" alt="osTicket Prereqs and Installation"/>
