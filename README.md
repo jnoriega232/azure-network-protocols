@@ -129,4 +129,4 @@ Back in Wireshark, filter for RDP traffic only. RDP stands for Remote Destop Pro
 </p>
 <p align="center">
 
-That is all for this tutorial! Thank you for tuning in!
+That's all for this tutorial! Thank you for tuning in!
